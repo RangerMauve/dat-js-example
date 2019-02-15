@@ -3819,17 +3819,19 @@ const pathAPI = require('path');
 
 const GATEWAY_URL = 'ws://gateway.mauve.moe:3000'
 const DAT_REGEX = /dat:\/\/([^\/]+)\/?(.*)?/i
+const LOAD_DELAY = 3000
 
 const searchForm = $('#controls')
 const urlBox = $('#url')
 const viewingBox = $('#viewing')
+const loader = $('#loader')
 
 let currentURL = 'dat://60c525b5589a5099aa3610a8ee550dcd454c3e118f7ac93b7d41b6b850272330'
 
 urlBox.value = currentURL
 
 const dat = new Dat({
-	websocketServer: GATEWAY_URL
+	gateway: GATEWAY_URL
 })
 
 searchForm.addEventListener('submit', (e) => {
@@ -3843,20 +3845,32 @@ searchForm.addEventListener('submit', (e) => {
 window.navigateTo = (navigateURL) => {
 	if (navigateURL.startsWith(`dat://`)) {
 		const parsed = parseURL(navigateURL)
-		
+
 		const archiveURL = `dat://${parsed.key}`
-		
+
 		currentURL = `${archiveURL}/${parsed.path}`
-
-		console.log('Navigating to', currentURL)
-
-		const repo = dat.get(archiveURL)
 
 		urlBox.value = currentURL
 
-		repo.ready(() => {
-			renderContent(repo.archive, `/${parsed.path}`)
-		})
+		console.log('Navigating to', currentURL)
+
+		const alreadyLoaded = dat.has(archiveURL)
+
+		const repo = dat.get(archiveURL)
+
+		const archive = repo.archive
+
+		const path = `/${parsed.path}`
+
+		if(alreadyLoaded) {
+			renderContent(repo.archive, path)
+		} else {
+			toggleLoader(true)
+			setTimeout(() => {
+				renderContent(repo.archive, path)
+				toggleLoader(false)
+			}, LOAD_DELAY)
+		}
 	} else {
 		const resolved = makeRelative(currentURL, navigateURL)
 
@@ -3967,6 +3981,10 @@ function getBlobURL(archive, path, mimeType, cb) {
 	})
 }
 
+function toggleLoader(state) {
+	loader.classList.toggle('dex-hidden', !state)
+}
+
 function $(query) {
 	return document.querySelector(query)
 }
@@ -3974,6 +3992,7 @@ function $(query) {
 function $$(query) {
 	return Array.from(document.querySelectorAll(query))
 }
+
 },{"dat-js":38,"mime/lite":68,"path":10}],16:[function(require,module,exports){
 (function (Buffer){
 var from = require('from2')
