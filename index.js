@@ -97,14 +97,14 @@ function renderFolder(archive, path) {
 		setContent(`
 			<ul class="dex-list">
 				<li class="dex-list-item">
-					<button class="dex-link" onclick="navigateTo('/')">/</button>
+					<a href="#" class="dex-link" onclick="navigateTo('/')">/</a>
 				</li>
 				<li class="dex-list-item">
-					<button class="dex-link" onclick="navigateTo('../')">../</button>
+					<a href="#" class="dex-link" onclick="navigateTo('../')">../</a>
 				</li>
 			${files.map((file) => `
 				<li class="dex-list-item">
-					<button class="dex-link" onclick="navigateTo('./${file}')">./${file}</button>
+					<a href="#" class="dex-link" onclick="navigateTo('./${file}')">./${file}</a>
 				</li>
 			`).join('\n')}
 			</ul>
