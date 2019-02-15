@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<title>Explore Dats</title>
+<style>
+	body, html {
+		display: flex;
+		margin: 0;
+		padding: 0;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+	}
+
+	#viewing {
+		flex: 1;
+		overflow-y: auto;
+		display: flex;
+	}
+
+	#controls {
+		display: flex;
+		padding: 0;
+		margin: 2px;
+	}
+	.dex-search-input {
+		flex: 1;
+		display: block;
+	}
+
+	.dex-iframe, .dex-image, .dex-video {
+		flex: 1;
+		border: none;
+	}
+</style>
+<form id="controls">
+	<input class="dex-search-input" id="url" class="dex-input" />
+	<button class="dex-search-button">🔎</button>
+</form>
+<section id="viewing"></section>
+<footer>Please enter a Dat URL. You may need to search twice if you're listing a directory.</footer>
+<script src="./bundle.js"></script>
