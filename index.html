@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <title>Explore Dats</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 	body, html {
 		display: flex;
@@ -34,11 +36,29 @@
 	footer {
 		text-align: center;
 	}
+
+	.dex-loading {
+		transform: rotate(0deg);
+		animation-name: rotate;
+		animation-duration: 500ms;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	@keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+	}
+
+	.dex-hidden {
+		display: none;
+	}
 </style>
 <form id="controls">
 	<button id="back" onclick="navigateTo('../')">⬅</button>
 	<input class="dex-search-input" id="url" class="dex-input" />
 	<button class="dex-search-button">🔎</button>
+	<div class="dex-loading dex-hidden" id="loader">🌀</div>
 </form>
 <section id="viewing"></section>
 <footer>Please enter a Dat URL. You may need to search twice if you're listing a directory.</footer>
