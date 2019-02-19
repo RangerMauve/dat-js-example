@@ -1,6 +1,7 @@
 {
   "name": "dat-js-example",
   "version": "1.0.0",
+  "private": true,
   "description": "An example of how you can use dat in the browser",
   "main": "index.js",
   "scripts": {
@@ -25,7 +26,7 @@
   },
   "homepage": "https://github.com/RangerMauve/dat-js-example#readme",
   "dependencies": {
-    "dat-js": "github:datproject/dat-js#new-api",
+    "dat-js": "^7.0.0",
     "mime": "^2.4.0"
   },
   "devDependencies": {
